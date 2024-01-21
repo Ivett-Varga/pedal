@@ -82,23 +82,23 @@ public class TestHelper {
         return contacts;
     }
 
-//    public List<Address> createAndPersistAddressesWithContacts(int numberOfAddresses, List<Contact> contacts) {
-//        List<Address> addresses = new ArrayList<>();
-//        for (int i = 0; i < numberOfAddresses; i++) {
-//            Address addressTemplate = PREDEFINED_ADDRESSES.get(i % PREDEFINED_ADDRESSES.size());
-//            Address address = new Address(addressTemplate.getStreet(), addressTemplate.getCity(), addressTemplate.getState(), addressTemplate.getZipCode(), addressTemplate.getCountry(), new ArrayList<>());
-//            address = addressRepository.save(address); // Persist to generate ID
-//
-//            // Associate contacts with this address
-//            for (Contact contact : contacts) {
-//                contact.setAddressId(address.getId());
-//                contactRepository.save(contact); // Update contacts with address ID
-//            }
-//
-//            addresses.add(address);
-//        }
-//        return addresses;
-//    }
+    public List<Address> createAndPersistAddresses(int numberOfAddresses, List<Contact> contacts) {
+        List<Address> addresses = new ArrayList<>();
+        for (int i = 0; i < numberOfAddresses; i++) {
+            Address addressTemplate = PREDEFINED_ADDRESSES.get(i % PREDEFINED_ADDRESSES.size());
+            Address address = new Address(addressTemplate.getStreet(), addressTemplate.getCity(), addressTemplate.getState(), addressTemplate.getZipCode(), addressTemplate.getCountry());
+            address = addressRepository.save(address); // Persist to generate ID
+
+            // Associate contacts with this address
+            for (Contact contact : contacts) {
+                contact.setAddressId(address.getId());
+                contactRepository.save(contact); // Update contacts with address ID
+            }
+
+            addresses.add(address);
+        }
+        return addresses;
+    }
 
     public List<Person> createAndPersistPeopleWithAddresses(int numberOfPeople, List<Address> addresses) {
         List<Person> people = new ArrayList<>();

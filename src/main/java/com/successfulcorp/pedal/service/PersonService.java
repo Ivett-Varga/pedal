@@ -70,4 +70,45 @@ public class PersonService {
         log.info("Updated person with id: {}", id);
         return updatedPerson;
     }
+
+    public Optional<Person> getPersonById(Integer id) {
+        return personRepository.findById(id);
+    }
+
+    public void deletePerson(Integer id) {
+        personRepository.deleteById(id);
+    }
+
+    public Person savePerson(Person testPerson) {
+        return personRepository.save(testPerson);
+    }
+
+    public List<Person> findByFirstName(String firstName) {
+        log.info("Fetching persons by first name: {}", firstName);
+        List<Person> persons = personRepository.findByFirstName(firstName);
+        log.info("Found {} persons with first name: {}", persons.size(), firstName);
+        return persons;
+    }
+
+
+    public List<Person> findByLastName(String lastName) {
+        log.info("Fetching persons by last name: {}", lastName);
+        List<Person> persons = personRepository.findByLastName(lastName);
+        log.info("Found {} persons with last name: {}", persons.size(), lastName);
+        return persons;
+    }
+
+    public List<Person> findByFirstNameAndLastName(String firstName, String lastName) {
+        log.info("Fetching persons by first name: {} and last name: {}", firstName, lastName);
+        List<Person> persons = personRepository.findByFirstNameAndLastName(firstName, lastName);
+        log.info("Found {} persons with first name: {} and last name: {}", persons.size(), firstName, lastName);
+        return persons;
+    }
+
+    public List<Person> findAllByOrderByLastNameAsc() {
+        log.info("Fetching all persons ordered by last name");
+        List<Person> persons = personRepository.findAllByOrderByLastNameAsc();
+        log.info("Found {} persons", persons.size());
+        return persons;
+    }
 }

@@ -18,4 +18,7 @@ public interface PersonRepository extends JpaRepository<Person, Integer> {
     List<Person> findByFirstNameAndLastName(String firstName, String lastName);
 
 
+    List<Person> findByFirstName(String firstName);
+
+    List<Person> findAllByOrderByLastNameAsc();
 }
