@@ -17,19 +17,36 @@ public class AddressService {
 
     private final AddressRepository addressRepository;
         public List<Address> findAll() {
-            return addressRepository.findAll();
+            log.info("Fetching all addresses");
+            List<Address> addresses = addressRepository.findAll();
+            log.info("Found {} addresses", addresses.size());
+            return addresses;
         }
 
         public Optional<Address> findById(Integer id) {
-            return addressRepository.findById(id);
+            log.info("Fetching address with id: {}", id);
+            Optional<Address> address = addressRepository.findById(id);
+            address.ifPresentOrElse(a -> log.info("Address found: {}", a),
+                    () -> log.warn("Address not found with id: {}", id));
+            return address;
         }
 
         public Address save(Address address) {
-            return addressRepository.save(address);
+            log.info("Saving address: {}", address);
+            Address savedAddress = addressRepository.save(address);
+            log.info("Saved address with id: {}", savedAddress.getId());
+            return savedAddress;
         }
 
         public void deleteById(Integer id) {
-            addressRepository.deleteById(id);
+            log.info("Deleting address with id: {}", id);
+            boolean exists = addressRepository.existsById(id);
+            if (exists) {
+                addressRepository.deleteById(id);
+                log.info("Deleted address with id: {}", id);
+            } else {
+                log.warn("Attempted to delete non-existing address with id: {}", id);
+            }
         }
 
 
@@ -37,8 +54,12 @@ public class AddressService {
         addressRepository.deleteAll();
     }
     public Address updateAddress(Integer id, Address addressDetails) {
+        log.info("Updating address with id: {}", id);
         Address address = addressRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Address not found with id " + id));
+                .orElseThrow(() -> {
+                    log.error("Address not found with id {}", id);
+                    return new RuntimeException("Address not found with id " + id);
+                });
 
         address.setStreet(addressDetails.getStreet());
         address.setCity(addressDetails.getCity());
@@ -46,6 +67,8 @@ public class AddressService {
         address.setZipCode(addressDetails.getZipCode());
         address.setCountry(addressDetails.getCountry());
 
-        return addressRepository.save(address);
+        Address updatedAddress = addressRepository.save(address);
+        log.info("Updated address with id: {}", id);
+        return updatedAddress;
     }
 }
