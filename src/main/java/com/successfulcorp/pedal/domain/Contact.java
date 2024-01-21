@@ -13,7 +13,6 @@ public class Contact extends BaseEntity{
     @Column(name = "address_id", nullable = false)
     private Integer addressId; // This is just an integer referencing the address ID
 
-
     @Column(name = "contact_type")
     private String contactType;
 

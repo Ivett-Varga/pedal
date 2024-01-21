@@ -2260,3 +2260,281 @@ Caused by: org.hibernate.AnnotationException: Collection 'com.successfulcorp.ped
 	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1820)
 	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1769)
 	... 16 common frames omitted
+2024-01-21 16:05:30 - Starting PedalApplication using Java 17.0.7 with PID 3864 (C:\dev\ij_ws\pedal\target\classes started by ivett in C:\dev\ij_ws\pedal)
+2024-01-21 16:05:30 - Running with Spring Boot v3.2.1, Spring v6.1.2
+2024-01-21 16:05:30 - No active profile set, falling back to 1 default profile: "default"
+2024-01-21 16:05:30 - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-01-21 16:05:31 - Finished Spring Data repository scanning in 32 ms. Found 3 JPA repository interfaces.
+2024-01-21 16:05:31 - Tomcat initialized with port 8080 (http)
+2024-01-21 16:05:31 - Starting service [Tomcat]
+2024-01-21 16:05:31 - Starting Servlet engine: [Apache Tomcat/10.1.17]
+2024-01-21 16:05:31 - Initializing Spring embedded WebApplicationContext
+2024-01-21 16:05:31 - Root WebApplicationContext: initialization completed in 678 ms
+2024-01-21 16:05:31 - HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-01-21 16:05:31 - HHH000412: Hibernate ORM core version 6.4.1.Final
+2024-01-21 16:05:31 - HHH000026: Second-level cache disabled
+2024-01-21 16:05:31 - No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-01-21 16:05:31 - HikariPool-1 - Starting...
+2024-01-21 16:05:31 - HikariPool-1 - Added connection ConnectionID:1 ClientConnectionId: 39ec9b5b-dcfe-4e9c-9814-e1c57bb09fa2
+2024-01-21 16:05:31 - HikariPool-1 - Start completed.
+2024-01-21 16:05:31 - Failed to initialize JPA EntityManagerFactory: Collection 'com.successfulcorp.pedal.domain.Address.contacts' is 'mappedBy' a property named 'address' which does not exist in the target entity 'com.successfulcorp.pedal.domain.Contact'
+2024-01-21 16:05:31 - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'entityManagerFactory' defined in class path resource [org/springframework/boot/autoconfigure/orm/jpa/HibernateJpaConfiguration.class]: Collection 'com.successfulcorp.pedal.domain.Address.contacts' is 'mappedBy' a property named 'address' which does not exist in the target entity 'com.successfulcorp.pedal.domain.Contact'
+2024-01-21 16:05:31 - HikariPool-1 - Shutdown initiated...
+2024-01-21 16:05:31 - HikariPool-1 - Shutdown completed.
+2024-01-21 16:05:31 - Stopping service [Tomcat]
+2024-01-21 16:05:31 - 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2024-01-21 16:05:31 - Application run failed
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'entityManagerFactory' defined in class path resource [org/springframework/boot/autoconfigure/orm/jpa/HibernateJpaConfiguration.class]: Collection 'com.successfulcorp.pedal.domain.Address.contacts' is 'mappedBy' a property named 'address' which does not exist in the target entity 'com.successfulcorp.pedal.domain.Contact'
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1773)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:599)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:521)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:325)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:323)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199)
+	at org.springframework.context.support.AbstractApplicationContext.getBean(AbstractApplicationContext.java:1232)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:950)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:625)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:762)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:464)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:334)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1358)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1347)
+	at com.successfulcorp.pedal.PedalApplication.main(PedalApplication.java:14)
+Caused by: org.hibernate.AnnotationException: Collection 'com.successfulcorp.pedal.domain.Address.contacts' is 'mappedBy' a property named 'address' which does not exist in the target entity 'com.successfulcorp.pedal.domain.Contact'
+	at org.hibernate.boot.model.internal.CollectionBinder.isReversePropertyInJoin(CollectionBinder.java:1622)
+	at org.hibernate.boot.model.internal.CollectionBinder.noAssociationTable(CollectionBinder.java:1636)
+	at org.hibernate.boot.model.internal.CollectionBinder.bindStarToManySecondPass(CollectionBinder.java:1597)
+	at org.hibernate.boot.model.internal.CollectionBinder$1.secondPass(CollectionBinder.java:1588)
+	at org.hibernate.boot.model.internal.CollectionSecondPass.doSecondPass(CollectionSecondPass.java:45)
+	at org.hibernate.boot.internal.InFlightMetadataCollectorImpl.processSecondPasses(InFlightMetadataCollectorImpl.java:1815)
+	at org.hibernate.boot.internal.InFlightMetadataCollectorImpl.processSecondPasses(InFlightMetadataCollectorImpl.java:1774)
+	at org.hibernate.boot.model.process.spi.MetadataBuildingProcess.complete(MetadataBuildingProcess.java:332)
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.metadata(EntityManagerFactoryBuilderImpl.java:1432)
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:1503)
+	at org.springframework.orm.jpa.vendor.SpringHibernateJpaPersistenceProvider.createContainerEntityManagerFactory(SpringHibernateJpaPersistenceProvider.java:75)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.createNativeEntityManagerFactory(LocalContainerEntityManagerFactoryBean.java:376)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.buildNativeEntityManagerFactory(AbstractEntityManagerFactoryBean.java:409)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.afterPropertiesSet(AbstractEntityManagerFactoryBean.java:396)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.afterPropertiesSet(LocalContainerEntityManagerFactoryBean.java:352)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1820)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1769)
+	... 16 common frames omitted
+2024-01-21 16:10:25 - Starting PedalApplication using Java 17.0.7 with PID 12804 (C:\dev\ij_ws\pedal\target\classes started by ivett in C:\dev\ij_ws\pedal)
+2024-01-21 16:10:25 - Running with Spring Boot v3.2.1, Spring v6.1.2
+2024-01-21 16:10:25 - No active profile set, falling back to 1 default profile: "default"
+2024-01-21 16:10:25 - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-01-21 16:10:26 - Finished Spring Data repository scanning in 32 ms. Found 3 JPA repository interfaces.
+2024-01-21 16:10:26 - Tomcat initialized with port 8080 (http)
+2024-01-21 16:10:26 - Starting service [Tomcat]
+2024-01-21 16:10:26 - Starting Servlet engine: [Apache Tomcat/10.1.17]
+2024-01-21 16:10:26 - Initializing Spring embedded WebApplicationContext
+2024-01-21 16:10:26 - Root WebApplicationContext: initialization completed in 681 ms
+2024-01-21 16:10:26 - HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-01-21 16:10:26 - HHH000412: Hibernate ORM core version 6.4.1.Final
+2024-01-21 16:10:26 - HHH000026: Second-level cache disabled
+2024-01-21 16:10:26 - No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-01-21 16:10:26 - HikariPool-1 - Starting...
+2024-01-21 16:10:26 - HikariPool-1 - Added connection ConnectionID:1 ClientConnectionId: 3a5af75e-ab0f-4ff7-be2b-505e18b613ff
+2024-01-21 16:10:26 - HikariPool-1 - Start completed.
+2024-01-21 16:10:26 - Failed to initialize JPA EntityManagerFactory: Collection 'com.successfulcorp.pedal.domain.Address.contacts' is 'mappedBy' a property named 'address_id' which does not exist in the target entity 'com.successfulcorp.pedal.domain.Contact'
+2024-01-21 16:10:26 - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'entityManagerFactory' defined in class path resource [org/springframework/boot/autoconfigure/orm/jpa/HibernateJpaConfiguration.class]: Collection 'com.successfulcorp.pedal.domain.Address.contacts' is 'mappedBy' a property named 'address_id' which does not exist in the target entity 'com.successfulcorp.pedal.domain.Contact'
+2024-01-21 16:10:26 - HikariPool-1 - Shutdown initiated...
+2024-01-21 16:10:26 - HikariPool-1 - Shutdown completed.
+2024-01-21 16:10:26 - Stopping service [Tomcat]
+2024-01-21 16:10:27 - 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2024-01-21 16:10:27 - Application run failed
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'entityManagerFactory' defined in class path resource [org/springframework/boot/autoconfigure/orm/jpa/HibernateJpaConfiguration.class]: Collection 'com.successfulcorp.pedal.domain.Address.contacts' is 'mappedBy' a property named 'address_id' which does not exist in the target entity 'com.successfulcorp.pedal.domain.Contact'
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1773)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:599)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:521)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:325)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:323)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199)
+	at org.springframework.context.support.AbstractApplicationContext.getBean(AbstractApplicationContext.java:1232)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:950)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:625)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:762)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:464)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:334)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1358)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1347)
+	at com.successfulcorp.pedal.PedalApplication.main(PedalApplication.java:14)
+Caused by: org.hibernate.AnnotationException: Collection 'com.successfulcorp.pedal.domain.Address.contacts' is 'mappedBy' a property named 'address_id' which does not exist in the target entity 'com.successfulcorp.pedal.domain.Contact'
+	at org.hibernate.boot.model.internal.CollectionBinder.isReversePropertyInJoin(CollectionBinder.java:1622)
+	at org.hibernate.boot.model.internal.CollectionBinder.noAssociationTable(CollectionBinder.java:1636)
+	at org.hibernate.boot.model.internal.CollectionBinder.bindStarToManySecondPass(CollectionBinder.java:1597)
+	at org.hibernate.boot.model.internal.CollectionBinder$1.secondPass(CollectionBinder.java:1588)
+	at org.hibernate.boot.model.internal.CollectionSecondPass.doSecondPass(CollectionSecondPass.java:45)
+	at org.hibernate.boot.internal.InFlightMetadataCollectorImpl.processSecondPasses(InFlightMetadataCollectorImpl.java:1815)
+	at org.hibernate.boot.internal.InFlightMetadataCollectorImpl.processSecondPasses(InFlightMetadataCollectorImpl.java:1774)
+	at org.hibernate.boot.model.process.spi.MetadataBuildingProcess.complete(MetadataBuildingProcess.java:332)
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.metadata(EntityManagerFactoryBuilderImpl.java:1432)
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:1503)
+	at org.springframework.orm.jpa.vendor.SpringHibernateJpaPersistenceProvider.createContainerEntityManagerFactory(SpringHibernateJpaPersistenceProvider.java:75)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.createNativeEntityManagerFactory(LocalContainerEntityManagerFactoryBean.java:376)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.buildNativeEntityManagerFactory(AbstractEntityManagerFactoryBean.java:409)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.afterPropertiesSet(AbstractEntityManagerFactoryBean.java:396)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.afterPropertiesSet(LocalContainerEntityManagerFactoryBean.java:352)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1820)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1769)
+	... 16 common frames omitted
+2024-01-21 16:12:03 - Starting PedalApplication using Java 17.0.7 with PID 22056 (C:\dev\ij_ws\pedal\target\classes started by ivett in C:\dev\ij_ws\pedal)
+2024-01-21 16:12:03 - Running with Spring Boot v3.2.1, Spring v6.1.2
+2024-01-21 16:12:03 - No active profile set, falling back to 1 default profile: "default"
+2024-01-21 16:12:04 - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-01-21 16:12:04 - Finished Spring Data repository scanning in 29 ms. Found 3 JPA repository interfaces.
+2024-01-21 16:12:04 - Tomcat initialized with port 8080 (http)
+2024-01-21 16:12:04 - Starting service [Tomcat]
+2024-01-21 16:12:04 - Starting Servlet engine: [Apache Tomcat/10.1.17]
+2024-01-21 16:12:04 - Initializing Spring embedded WebApplicationContext
+2024-01-21 16:12:04 - Root WebApplicationContext: initialization completed in 691 ms
+2024-01-21 16:12:04 - HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-01-21 16:12:04 - HHH000412: Hibernate ORM core version 6.4.1.Final
+2024-01-21 16:12:04 - HHH000026: Second-level cache disabled
+2024-01-21 16:12:04 - No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-01-21 16:12:04 - HikariPool-1 - Starting...
+2024-01-21 16:12:05 - HikariPool-1 - Added connection ConnectionID:1 ClientConnectionId: 0484c86a-a3f1-45ac-a732-18f22a08f0af
+2024-01-21 16:12:05 - HikariPool-1 - Start completed.
+2024-01-21 16:12:05 - Failed to initialize JPA EntityManagerFactory: Collection 'com.successfulcorp.pedal.domain.Address.contacts' is 'mappedBy' a property named 'address_id' which does not exist in the target entity 'com.successfulcorp.pedal.domain.Contact'
+2024-01-21 16:12:05 - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'entityManagerFactory' defined in class path resource [org/springframework/boot/autoconfigure/orm/jpa/HibernateJpaConfiguration.class]: Collection 'com.successfulcorp.pedal.domain.Address.contacts' is 'mappedBy' a property named 'address_id' which does not exist in the target entity 'com.successfulcorp.pedal.domain.Contact'
+2024-01-21 16:12:05 - HikariPool-1 - Shutdown initiated...
+2024-01-21 16:12:05 - HikariPool-1 - Shutdown completed.
+2024-01-21 16:12:05 - Stopping service [Tomcat]
+2024-01-21 16:12:05 - 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2024-01-21 16:12:05 - Application run failed
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'entityManagerFactory' defined in class path resource [org/springframework/boot/autoconfigure/orm/jpa/HibernateJpaConfiguration.class]: Collection 'com.successfulcorp.pedal.domain.Address.contacts' is 'mappedBy' a property named 'address_id' which does not exist in the target entity 'com.successfulcorp.pedal.domain.Contact'
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1773)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:599)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:521)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:325)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:323)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199)
+	at org.springframework.context.support.AbstractApplicationContext.getBean(AbstractApplicationContext.java:1232)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:950)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:625)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:762)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:464)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:334)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1358)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1347)
+	at com.successfulcorp.pedal.PedalApplication.main(PedalApplication.java:14)
+Caused by: org.hibernate.AnnotationException: Collection 'com.successfulcorp.pedal.domain.Address.contacts' is 'mappedBy' a property named 'address_id' which does not exist in the target entity 'com.successfulcorp.pedal.domain.Contact'
+	at org.hibernate.boot.model.internal.CollectionBinder.isReversePropertyInJoin(CollectionBinder.java:1622)
+	at org.hibernate.boot.model.internal.CollectionBinder.noAssociationTable(CollectionBinder.java:1636)
+	at org.hibernate.boot.model.internal.CollectionBinder.bindStarToManySecondPass(CollectionBinder.java:1597)
+	at org.hibernate.boot.model.internal.CollectionBinder$1.secondPass(CollectionBinder.java:1588)
+	at org.hibernate.boot.model.internal.CollectionSecondPass.doSecondPass(CollectionSecondPass.java:45)
+	at org.hibernate.boot.internal.InFlightMetadataCollectorImpl.processSecondPasses(InFlightMetadataCollectorImpl.java:1815)
+	at org.hibernate.boot.internal.InFlightMetadataCollectorImpl.processSecondPasses(InFlightMetadataCollectorImpl.java:1774)
+	at org.hibernate.boot.model.process.spi.MetadataBuildingProcess.complete(MetadataBuildingProcess.java:332)
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.metadata(EntityManagerFactoryBuilderImpl.java:1432)
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:1503)
+	at org.springframework.orm.jpa.vendor.SpringHibernateJpaPersistenceProvider.createContainerEntityManagerFactory(SpringHibernateJpaPersistenceProvider.java:75)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.createNativeEntityManagerFactory(LocalContainerEntityManagerFactoryBean.java:376)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.buildNativeEntityManagerFactory(AbstractEntityManagerFactoryBean.java:409)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.afterPropertiesSet(AbstractEntityManagerFactoryBean.java:396)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.afterPropertiesSet(LocalContainerEntityManagerFactoryBean.java:352)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1820)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1769)
+	... 16 common frames omitted
+2024-01-21 16:18:28 - Starting PedalApplication using Java 17.0.7 with PID 7720 (C:\dev\ij_ws\pedal\target\classes started by ivett in C:\dev\ij_ws\pedal)
+2024-01-21 16:18:28 - Running with Spring Boot v3.2.1, Spring v6.1.2
+2024-01-21 16:18:28 - No active profile set, falling back to 1 default profile: "default"
+2024-01-21 16:18:28 - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-01-21 16:18:28 - Finished Spring Data repository scanning in 29 ms. Found 3 JPA repository interfaces.
+2024-01-21 16:18:28 - Tomcat initialized with port 8080 (http)
+2024-01-21 16:18:28 - Starting service [Tomcat]
+2024-01-21 16:18:28 - Starting Servlet engine: [Apache Tomcat/10.1.17]
+2024-01-21 16:18:29 - Initializing Spring embedded WebApplicationContext
+2024-01-21 16:18:29 - Root WebApplicationContext: initialization completed in 662 ms
+2024-01-21 16:18:29 - HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-01-21 16:18:29 - HHH000412: Hibernate ORM core version 6.4.1.Final
+2024-01-21 16:18:29 - HHH000026: Second-level cache disabled
+2024-01-21 16:18:29 - No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-01-21 16:18:29 - HikariPool-1 - Starting...
+2024-01-21 16:18:29 - HikariPool-1 - Added connection ConnectionID:1 ClientConnectionId: 59b3dd92-5766-46e5-a3cf-cc1b93bd87f5
+2024-01-21 16:18:29 - HikariPool-1 - Start completed.
+2024-01-21 16:18:30 - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-01-21 16:18:30 - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-01-21 16:18:31 - Tomcat started on port 8080 (http) with context path ''
+2024-01-21 16:18:31 - Started PedalApplication in 3.071 seconds (process running for 3.409)
+2024-01-21 16:18:31 - Application started successfully
+2024-01-21 16:19:22 - Application is shutting down
+2024-01-21 16:19:22 - Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-01-21 16:19:22 - HikariPool-1 - Shutdown initiated...
+2024-01-21 16:19:22 - HikariPool-1 - Shutdown completed.
+2024-01-21 16:19:24 - Starting PedalApplication using Java 17.0.7 with PID 6756 (C:\dev\ij_ws\pedal\target\classes started by ivett in C:\dev\ij_ws\pedal)
+2024-01-21 16:19:24 - Running with Spring Boot v3.2.1, Spring v6.1.2
+2024-01-21 16:19:24 - No active profile set, falling back to 1 default profile: "default"
+2024-01-21 16:19:25 - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-01-21 16:19:25 - Finished Spring Data repository scanning in 32 ms. Found 3 JPA repository interfaces.
+2024-01-21 16:19:25 - Tomcat initialized with port 8080 (http)
+2024-01-21 16:19:25 - Starting service [Tomcat]
+2024-01-21 16:19:25 - Starting Servlet engine: [Apache Tomcat/10.1.17]
+2024-01-21 16:19:25 - Initializing Spring embedded WebApplicationContext
+2024-01-21 16:19:25 - Root WebApplicationContext: initialization completed in 676 ms
+2024-01-21 16:19:25 - HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-01-21 16:19:25 - HHH000412: Hibernate ORM core version 6.4.1.Final
+2024-01-21 16:19:25 - HHH000026: Second-level cache disabled
+2024-01-21 16:19:25 - No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-01-21 16:19:25 - HikariPool-1 - Starting...
+2024-01-21 16:19:26 - HikariPool-1 - Added connection ConnectionID:1 ClientConnectionId: 999a3f41-c823-40bb-830f-f1ee91b3b606
+2024-01-21 16:19:26 - HikariPool-1 - Start completed.
+2024-01-21 16:19:26 - Failed to initialize JPA EntityManagerFactory: Collection 'com.successfulcorp.pedal.domain.Address.contacts' is 'mappedBy' a property named 'address_id' which does not exist in the target entity 'com.successfulcorp.pedal.domain.Contact'
+2024-01-21 16:19:26 - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'entityManagerFactory' defined in class path resource [org/springframework/boot/autoconfigure/orm/jpa/HibernateJpaConfiguration.class]: Collection 'com.successfulcorp.pedal.domain.Address.contacts' is 'mappedBy' a property named 'address_id' which does not exist in the target entity 'com.successfulcorp.pedal.domain.Contact'
+2024-01-21 16:19:26 - HikariPool-1 - Shutdown initiated...
+2024-01-21 16:19:26 - HikariPool-1 - Shutdown completed.
+2024-01-21 16:19:26 - Stopping service [Tomcat]
+2024-01-21 16:19:26 - 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2024-01-21 16:19:26 - Application run failed
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'entityManagerFactory' defined in class path resource [org/springframework/boot/autoconfigure/orm/jpa/HibernateJpaConfiguration.class]: Collection 'com.successfulcorp.pedal.domain.Address.contacts' is 'mappedBy' a property named 'address_id' which does not exist in the target entity 'com.successfulcorp.pedal.domain.Contact'
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1773)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:599)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:521)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:325)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:323)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199)
+	at org.springframework.context.support.AbstractApplicationContext.getBean(AbstractApplicationContext.java:1232)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:950)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:625)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:762)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:464)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:334)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1358)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1347)
+	at com.successfulcorp.pedal.PedalApplication.main(PedalApplication.java:14)
+Caused by: org.hibernate.AnnotationException: Collection 'com.successfulcorp.pedal.domain.Address.contacts' is 'mappedBy' a property named 'address_id' which does not exist in the target entity 'com.successfulcorp.pedal.domain.Contact'
+	at org.hibernate.boot.model.internal.CollectionBinder.isReversePropertyInJoin(CollectionBinder.java:1622)
+	at org.hibernate.boot.model.internal.CollectionBinder.noAssociationTable(CollectionBinder.java:1636)
+	at org.hibernate.boot.model.internal.CollectionBinder.bindStarToManySecondPass(CollectionBinder.java:1597)
+	at org.hibernate.boot.model.internal.CollectionBinder$1.secondPass(CollectionBinder.java:1588)
+	at org.hibernate.boot.model.internal.CollectionSecondPass.doSecondPass(CollectionSecondPass.java:45)
+	at org.hibernate.boot.internal.InFlightMetadataCollectorImpl.processSecondPasses(InFlightMetadataCollectorImpl.java:1815)
+	at org.hibernate.boot.internal.InFlightMetadataCollectorImpl.processSecondPasses(InFlightMetadataCollectorImpl.java:1774)
+	at org.hibernate.boot.model.process.spi.MetadataBuildingProcess.complete(MetadataBuildingProcess.java:332)
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.metadata(EntityManagerFactoryBuilderImpl.java:1432)
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:1503)
+	at org.springframework.orm.jpa.vendor.SpringHibernateJpaPersistenceProvider.createContainerEntityManagerFactory(SpringHibernateJpaPersistenceProvider.java:75)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.createNativeEntityManagerFactory(LocalContainerEntityManagerFactoryBean.java:376)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.buildNativeEntityManagerFactory(AbstractEntityManagerFactoryBean.java:409)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.afterPropertiesSet(AbstractEntityManagerFactoryBean.java:396)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.afterPropertiesSet(LocalContainerEntityManagerFactoryBean.java:352)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1820)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1769)
+	... 16 common frames omitted
