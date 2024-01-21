@@ -1,12 +1,11 @@
 package com.successfulcorp.pedal.exception;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Slf4j
 @Getter
@@ -26,5 +25,4 @@ public class ErrorResponse {
         this.message = message;
         this.path = path;
     }
-
-}
+    }

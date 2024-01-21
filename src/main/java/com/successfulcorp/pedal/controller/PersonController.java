@@ -2,13 +2,10 @@ package com.successfulcorp.pedal.controller;
 
 import com.successfulcorp.pedal.domain.Person;
 import com.successfulcorp.pedal.service.PersonService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -23,11 +20,13 @@ public class PersonController {
 
     @GetMapping
     public List<Person> getAllPeople() {
+        log.info("Received request to get all persons");
         return personService.findAll();
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Person> getPersonById(@PathVariable Integer id) {
+        log.info("Received request to get person by ID: {}", id);
         return personService.findById(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
@@ -35,16 +34,18 @@ public class PersonController {
 
     @PostMapping
     public Person createPerson(@RequestBody Person person) {
+        log.info("Received request to save person: {}", person);
         return personService.save(person);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<Person> updatePerson(@PathVariable Integer id, @RequestBody Person personDetails) {
+        log.info("Received request to update person: {} to new values: {}", id, personDetails);
         return personService.findById(id)
                 .map(person -> {
                     person.setFirstName(personDetails.getFirstName());
                     person.setLastName(personDetails.getLastName());
-                    // Handle updating addresses if necessary
+                    // Handle updating persones if necessary
                     Person updatedPerson = personService.save(person);
                     return ResponseEntity.ok(updatedPerson);
                 })
@@ -53,6 +54,7 @@ public class PersonController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletePerson(@PathVariable Integer id) {
+        log.info("Received request to delete person: {}", id);
         return personService.findById(id)
                 .map(person -> {
                     personService.deleteById(id);
@@ -60,14 +62,12 @@ public class PersonController {
                 })
                 .orElse(ResponseEntity.notFound().build());
     }
-
-    @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<?> handleValidationExceptions(MethodArgumentNotValidException ex) {
-        List<String> errors = ex.getBindingResult()
-                .getFieldErrors()
-                .stream()
-                .map(error -> error.getField() + ": " + error.getDefaultMessage())
-                .collect(Collectors.toList());
-        return ResponseEntity.badRequest().body(errors);
+    @DeleteMapping
+    public ResponseEntity<Void> deleteAllPersons() {
+        log.info("Received request to delete all persons");
+        personService.deleteAll();
+        return ResponseEntity.ok().build();
     }
+
+
 }

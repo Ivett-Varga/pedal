@@ -28,11 +28,13 @@ public class ContactController {
 
     @GetMapping
     public List<Contact> getAllContacts() {
+        log.info("Received request to get all contacts");
         return contactService.findAll();
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Contact> getContactById(@PathVariable Integer id) {
+        log.info("Received request to get contact by ID: {}", id);
         return contactService.findById(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
@@ -40,11 +42,13 @@ public class ContactController {
 
     @PostMapping
     public Contact createContact(@RequestBody Contact contact) {
+        log.info("Received request to save contact: {}", contact);
         return contactService.save(contact);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<Contact> updateContact(@PathVariable Integer id, @RequestBody Contact contactDetails) {
+        log.info("Received request to update contact: {} to new values: {}", id, contactDetails);
         return contactService.findById(id)
                 .map(contact -> {
                     contact.setContactType(contactDetails.getContactType());
@@ -57,6 +61,7 @@ public class ContactController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteContact(@PathVariable Integer id) {
+        log.info("Received request to delete contact: {}", id);
         return contactService.findById(id)
                 .map(contact -> {
                     contactService.deleteById(id);
@@ -65,37 +70,6 @@ public class ContactController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    @ExceptionHandler(Exception.class)
-    public ResponseEntity<String> handleException(Exception e) {
-        log.error("An error occurred: {}", e.getMessage());
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred");
-    }
 
-    @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<String> handleMethodArgumentNotValidException(MethodArgumentNotValidException e) {
-        BindingResult result = e.getBindingResult();
-        List<FieldError> fieldErrors = result.getFieldErrors();
-        String errorMessage = fieldErrors.stream()
-                .map(error -> error.getField() + ": " + error.getDefaultMessage())
-                .collect(Collectors.joining(", "));
-        log.error("Validation error occurred: {}", errorMessage);
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorMessage);
-    }
-    @ExceptionHandler(NoSuchElementException.class)
-    public ResponseEntity<String> handleNoSuchElementException(NoSuchElementException e) {
-        log.error("An error occurred: {}", e.getMessage());
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Contact not found");
-    }
 
-    @ExceptionHandler(IllegalArgumentException.class)
-    public ResponseEntity<String> handleIllegalArgumentException(IllegalArgumentException e) {
-        log.error("An error occurred: {}", e.getMessage());
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
-    }
-
-    @ExceptionHandler(MethodArgumentTypeMismatchException.class)
-    public ResponseEntity<String> handleMethodArgumentTypeMismatchException(MethodArgumentTypeMismatchException e) {
-        log.error("An error occurred: {}", e.getMessage());
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid argument type");
-    }
 }
