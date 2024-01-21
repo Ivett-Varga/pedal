@@ -53,5 +53,5 @@ public class GlobalExceptionHandler {
         log.error(errorResponse.getMessage());
         return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
     }
-    
+
 }
