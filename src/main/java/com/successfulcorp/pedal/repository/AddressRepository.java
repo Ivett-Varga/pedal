@@ -13,8 +13,4 @@ public interface AddressRepository extends JpaRepository<Address, Integer> {
 
     @NotNull Optional<Address> findById(Integer Id);
 
-
-
-
-
 }

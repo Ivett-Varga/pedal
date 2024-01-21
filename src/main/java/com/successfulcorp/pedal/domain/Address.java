@@ -1,19 +1,20 @@
 package com.successfulcorp.pedal.domain;
+
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
+
+import java.util.ArrayList;
 import java.util.List;
+
 import lombok.*;
 
+@EqualsAndHashCode(callSuper = true)
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
 @Table(name = "address")
-public class Address {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+public class Address extends BaseEntity {
 
     @Column(name = "street", nullable = false)
     @NotBlank(message = "Street must not be blank")
@@ -42,4 +43,14 @@ public class Address {
 
     @OneToMany(mappedBy = "address", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Contact> contacts;
+
+    public Address(String street, String city, String country, String zipCode, String state) {
+        this.street = street;
+        this.city = city;
+        this.country = country;
+        this.zipCode = zipCode;
+        this.state = state;
+    }
+
+
 }

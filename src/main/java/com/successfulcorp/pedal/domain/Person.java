@@ -3,16 +3,13 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.*;
 
+@EqualsAndHashCode(callSuper = true)
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
 @Table(name = "person")
-public class Person {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+public class Person extends BaseEntity{
 
     @Column(name = "first_name", nullable = false)
     @NotBlank(message = "First name must not be blank")
@@ -31,4 +28,9 @@ public class Person {
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "temporary_address_id", referencedColumnName = "id")
     private Address temporaryAddress;
+
+    public Person(String firstName, String lastName){
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
 }
