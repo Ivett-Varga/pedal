@@ -10,7 +10,7 @@ import lombok.*;
 @Table(name = "contact")
 public class Contact extends BaseEntity{
 
-    @Column(name = "address_id", nullable = false)
+    @Column(name = "address_id")
     private Integer addressId; // This is just an integer referencing the address ID
 
     @Column(name = "contact_type")

@@ -19,6 +19,10 @@ GO
 CREATE DATABASE PEDAL;
 GO
 
+
+ALTER DATABASE PEDAL SET MULTI_USER;
+GO
+
 -- Change to the new database context
 USE PEDAL;
 GO
@@ -37,18 +41,7 @@ GO
 -- Note: Modify the table creation scripts according to your actual schema
 
 -- Create person Table
-CREATE TABLE person (
-                        id INT PRIMARY KEY IDENTITY(1,1),
-                        first_name NVARCHAR(100) NOT NULL,
-                        last_name NVARCHAR(100) NOT NULL,
-                        permanent_address_id INT NOT NULL,
-                        temporary_address_id INT,
-                        CONSTRAINT FK_person_permanent_address FOREIGN KEY (permanent_address_id)
-                            REFERENCES address(id),
-                        CONSTRAINT FK_person_temporary_address FOREIGN KEY (temporary_address_id)
-                            REFERENCES address(id)
-);
-GO
+
 
 -- Create address Table
 CREATE TABLE address (
@@ -63,11 +56,24 @@ GO
 
 CREATE TABLE contact (
                          id INT PRIMARY KEY IDENTITY(1,1),
-                         address_id INT NOT NULL,
+                         address_id INT,
                          contact_type NVARCHAR(50) NOT NULL,
                          contact_detail NVARCHAR(255) NOT NULL,
                          CONSTRAINT FK_address_contact FOREIGN KEY (address_id)
                              REFERENCES address(id)
+);
+GO
+
+CREATE TABLE person (
+                        id INT PRIMARY KEY IDENTITY(1,1),
+                        first_name NVARCHAR(100) NOT NULL,
+                        last_name NVARCHAR(100) NOT NULL,
+                        permanent_address_id INT,
+                        temporary_address_id INT,
+                        CONSTRAINT FK_person_permanent_address FOREIGN KEY (permanent_address_id)
+                            REFERENCES address(id),
+                        CONSTRAINT FK_person_temporary_address FOREIGN KEY (temporary_address_id)
+                            REFERENCES address(id)
 );
 GO
 
