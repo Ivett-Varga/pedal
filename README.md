@@ -21,3 +21,6 @@ DML (Data Manipulation Language) script is also included for the loading of init
 Testing:
 
 The project includes writing various test cases that ensure the correct functioning of the application's features. Integration and unit tests were conducted to verify the correct operation of API endpoints and the correctness of application logic.
+
+THIS IS THE FIRST VERSION. 
+! AN UPDATE IS IN PROGRESS AND WILL BE AVAILABLE IN ANOTHER BRANCH ON 29ht OF JANUARY, 2024.
