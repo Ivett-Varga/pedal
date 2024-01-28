@@ -20,6 +20,7 @@ Use Maven commands (mvn clean install, mvn test) for building and testing.
 
 # Recent Updates
 Enhanced testing coverage with additional tests and resolved issues for greater stability.
+All changes were merged into the master branch.
 
 # Suggested Future Improvements
 Test Coverage: Expanding tests to include edge cases and error handling.
