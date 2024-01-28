@@ -7,7 +7,7 @@ It utilizes Spring Boot, JPA/Hibernate, and a SQL Server database, focusing on c
 
 # Design Considerations
 Adhering to the project's specification of utilizing three database tables, a singular base Contact class is employed rather than extending it with ContactEmail, ContactPhone, etc. 
-This approach avoids the generation of additional tables in the database by Hibernate JPA, aligning with the project's streamlined database design.
+This approach avoids the generation of additional tables in the database by Hibernate JPA, aligning with the project's specification.
 
 # Features
 RESTful API for managing personal data.
