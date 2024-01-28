@@ -1,26 +1,22 @@
-# pedal
+# PeDaL
 PeDaL application is a Spring Boot application for personal data and location mangement
 
-Project Description:
+# Overview
+Pedal is a Java-based application designed for managing personal data. 
+It utilizes Spring Boot, JPA/Hibernate, and a SQL Server database, focusing on clean architecture and well-defined APIs.
 
-The objective of the project was to develop a Spring Boot-based application capable of managing and maintaining records of persons, addresses, and contacts. The application utilizes a database management system that encompasses three primary tables: Persons, Addresses, and Contacts. Each person can have a maximum of two addresses (permanent and temporary), and multiple contacts (such as email, phone, etc.) can be associated with each address.
+# Design Considerations
+Adhering to the project's specification of utilizing three database tables, a singular base Contact class is employed rather than extending it with ContactEmail, ContactPhone, etc. 
+This approach avoids the generation of additional tables in the database by Hibernate JPA, aligning with the project's streamlined database design.
 
-Key Functions of the Application:
+# Features
+RESTful API for managing personal data.
+Robust data layer with JPA/Hibernate.
+Comprehensive testing suite ensuring reliability and stability.
 
-Data Retrieval: The application allows for querying existing data of persons, addresses, and contacts.
-Data Registration: New records can be added to the persons, addresses, and contacts tables.
-Data Modification: The data of existing records can be modified.
-Data Deletion: Unwanted records can be removed.
-Error Handling: The application handles various errors that may occur during database operations.
-Development Environment and Technologies:
+# Setup and Configuration
+Refer to the application.properties file for database and server configurations. 
+Use Maven commands (mvn clean install, mvn test) for building and testing.
 
-The application was developed in Java 17, leveraging the benefits offered by the Spring Boot framework.
-MS SQL Server 2019 was utilized for data storage and management.
-DDL (Data Definition Language) script is provided for the creation of the database structure. 
-DML (Data Manipulation Language) script is also included for the loading of initial data.
-Testing:
-
-The project includes writing various test cases that ensure the correct functioning of the application's features. Integration and unit tests were conducted to verify the correct operation of API endpoints and the correctness of application logic.
-
-THIS IS THE FIRST VERSION. 
-! AN UPDATE IS IN PROGRESS AND WILL BE AVAILABLE IN ANOTHER BRANCH ON 29ht OF JANUARY, 2024.
+# Recent Updates
+Enhanced testing coverage with additional tests and resolved issues for greater stability.
