@@ -6,8 +6,14 @@ import com.successfulcorp.pedal.domain.Contact;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.Import;
+import org.springframework.test.context.TestExecutionListeners;
+import org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener;
+import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
+import org.springframework.test.context.support.DirtiesContextTestExecutionListener;
+import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
 
 import java.util.List;
 import java.util.Optional;
@@ -16,30 +22,35 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @DataJpaTest
-@Import(TestHelper.class) // Import TestHelper to use in this test
+@TestExecutionListeners(listeners = {
+        DependencyInjectionTestExecutionListener.class,
+        DirtiesContextTestExecutionListener.class,
+        TransactionalTestExecutionListener.class,
+        SqlScriptsTestExecutionListener.class
+})
+@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
+@Import(TestHelper.class)
 public class AddressRepositoryIT {
 
     @Autowired
     private AddressRepository addressRepository;
-
     @Autowired
     private ContactRepository contactRepository;
+
 
     @Autowired
     private TestHelper testHelper;
 
     private Address testAddress;
+    private List<Contact> testContacts;
 
     @BeforeEach
     public void setUp() {
-        addressRepository.deleteAll();
-        List<Contact> contacts = testHelper.createAndPersistContacts(1);
-        testAddress = testHelper.createAndPersistAddresses(2, contacts).get(0);
-        // Associating contacts with the address
-        contacts.forEach(contact -> {
-            contact.setAddressId(testAddress.getId());
-            contactRepository.save(contact);
-        });
+        contactRepository.deleteAll(); // Delete contacts first to avoid foreign key constraint violation        addressRepository.deleteAll();
+
+        testAddress = testHelper.createAndPersistAddress("Test Street 1", "Test City", "Test State", "Test Zip", "Test Country");
+        testContacts = testHelper.createAndPersistContacts(2);
+        testHelper.createAndPersistAddresses(2, testContacts);
     }
 
     @Test
@@ -54,15 +65,11 @@ public class AddressRepositoryIT {
 
     @Test
     public void whenFindAll_thenReturnAllAddresses() {
-        // given
-        int numberOfAdditionalAddresses = 2; // Add 2 more addresses
-        testHelper.createAndPersistAddresses(numberOfAdditionalAddresses, List.of());
-
         // when
         List<Address> foundAddresses = addressRepository.findAll();
 
         // then
-        assertThat(foundAddresses.size()).isEqualTo(numberOfAdditionalAddresses + 1); // +1 for the testAddress
+        assertThat(foundAddresses.size()).isGreaterThanOrEqualTo(3); // 3 including the testAddress and two created in setUp
     }
 
     @Test

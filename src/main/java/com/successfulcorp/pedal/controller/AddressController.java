@@ -1,16 +1,15 @@
 package com.successfulcorp.pedal.controller;
 
 import com.successfulcorp.pedal.domain.Address;
-import com.successfulcorp.pedal.exception.ErrorResponse;
+import com.successfulcorp.pedal.domain.Person;
 import com.successfulcorp.pedal.service.AddressService;
+import com.successfulcorp.pedal.service.PersonService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpStatus;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
@@ -20,6 +19,9 @@ import java.util.List;
 public class AddressController {
 
     private final AddressService addressService;
+
+    @Autowired
+    private PersonService personService;
 
     @GetMapping
     public ResponseEntity<List<Address>> getAllAddresses() {
@@ -62,6 +64,13 @@ public class AddressController {
         log.info("Received request to delete address: {}", id);
         return addressService.findById(id)
                 .map(address -> {
+                    List<Person> people = personService.findByPermanentAddress(address);
+
+                    for (Person person : people) {
+                        person.setPermanentAddress(null);
+                        personService.save(person);
+                    }
+
                     addressService.deleteById(id);
                     return ResponseEntity.ok().<Void>build();
                 })

@@ -2,7 +2,7 @@ package com.successfulcorp.pedal.service;
 
 import com.successfulcorp.pedal.domain.Address;
 import com.successfulcorp.pedal.repository.AddressRepository;
-import lombok.RequiredArgsConstructor;
+import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,10 +12,18 @@ import java.util.Optional;
 
 @Slf4j
 @Service
-@RequiredArgsConstructor
+@NoArgsConstructor(force = true)
 public class AddressService {
 
+    @Autowired
     private final AddressRepository addressRepository;
+    private final PersonService personService;
+
+    // use constructor injection
+    public AddressService(AddressRepository addressRepository, PersonService personService) {
+        this.addressRepository = addressRepository;
+        this.personService = personService;
+    }
         public List<Address> findAll() {
             log.info("Fetching all addresses");
             List<Address> addresses = addressRepository.findAll();
@@ -53,6 +61,7 @@ public class AddressService {
     public void deleteAll() {
         addressRepository.deleteAll();
     }
+
     public Address updateAddress(Integer id, Address addressDetails) {
         log.info("Updating address with id: {}", id);
         Address address = addressRepository.findById(id)

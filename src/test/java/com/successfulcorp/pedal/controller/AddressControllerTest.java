@@ -2,7 +2,9 @@ package com.successfulcorp.pedal.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.successfulcorp.pedal.domain.Address;
+import com.successfulcorp.pedal.domain.Person;
 import com.successfulcorp.pedal.service.AddressService;
+import com.successfulcorp.pedal.service.PersonService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -10,17 +12,19 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.MediaType;
+import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.web.context.WebApplicationContext;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @ExtendWith(MockitoExtension.class)
 public class AddressControllerTest {
@@ -29,6 +33,9 @@ public class AddressControllerTest {
 
     @Mock
     private AddressService addressService;
+
+    @Mock
+    private PersonService personService;
 
     @InjectMocks
     private AddressController addressController;
@@ -39,6 +46,11 @@ public class AddressControllerTest {
     public void setUp() {
         mockMvc = MockMvcBuilders.standaloneSetup(addressController).build();
         objectMapper = new ObjectMapper();
+
+        // Inject the mocked personService into addressController
+        addressController = new AddressController(addressService);
+        ReflectionTestUtils.setField(addressController, "personService", personService);
+        mockMvc = MockMvcBuilders.standaloneSetup(addressController).build();
     }
 
     @Test
@@ -103,9 +115,10 @@ public class AddressControllerTest {
     public void whenDeleteAddress_thenReturns200() throws Exception {
         Address address = new Address();
         address.setId(1);
+        List<Person> people = new ArrayList<>();
 
         when(addressService.findById(address.getId())).thenReturn(Optional.of(address));
-        doNothing().when(addressService).deleteById(address.getId());
+        when(personService.findByPermanentAddress(address)).thenReturn(people); // Mock the response
 
         mockMvc.perform(delete("/api/addresses/{id}", address.getId()))
                 .andExpect(status().isOk());

@@ -6,7 +6,6 @@ import com.successfulcorp.pedal.repository.AddressRepository;
 import com.successfulcorp.pedal.repository.PersonRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -94,5 +93,9 @@ public class PersonService {
         person.setTemporaryAddress(tempAddress);
 
         return personRepository.save(person);
+    }
+
+    public List<Person> findByPermanentAddress(Address permanentAddress) {
+        return personRepository.findByPermanentAddress(permanentAddress);
     }
 }

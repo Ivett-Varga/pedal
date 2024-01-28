@@ -6,34 +6,20 @@ import com.successfulcorp.pedal.domain.Person;
 import com.successfulcorp.pedal.repository.AddressRepository;
 import com.successfulcorp.pedal.repository.ContactRepository;
 import com.successfulcorp.pedal.repository.PersonRepository;
-import com.successfulcorp.pedal.service.AddressService;
-import com.successfulcorp.pedal.service.ContactService;
-import com.successfulcorp.pedal.service.PersonService;
 import lombok.extern.slf4j.Slf4j;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.test.web.server.LocalServerPort;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.core.io.Resource;
-import org.springframework.core.io.support.EncodedResource;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.datasource.init.ScriptUtils;
 
-import java.nio.charset.StandardCharsets;
-import java.sql.SQLException;
 import java.util.List;
-import java.util.Objects;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -62,14 +48,6 @@ public class PedalApplicationTests {
     private String getRootUrl() {
         return "http://localhost:" + port;
     }
-
-//    @BeforeEach
-//    public void setUp() throws SQLException {
-//        // Execute the SQL script to insert data
-//        Resource resource = new ClassPathResource("\\db\\data.sql");
-//        EncodedResource encodedResource = new EncodedResource(resource, StandardCharsets.UTF_8);
-//        ScriptUtils.executeSqlScript(Objects.requireNonNull(jdbcTemplate.getDataSource()).getConnection(), encodedResource);
-//    }
 
     private Address permAddress;
     private Address tempAddress;
