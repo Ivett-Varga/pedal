@@ -1,17 +1,17 @@
--- Insert some initial data into the `person` table
-INSERT INTO person (first_name, last_name)
-VALUES ('John', 'Doe');
-INSERT INTO person (first_name, last_name)
-VALUES ('Jane', 'Roe');
+-- Insert data into the 'address' table
+INSERT INTO address (street, city, state, zip_code, country) VALUES ('123 Main St', 'Springfield', 'StateName', '12345', 'USA');
+DECLARE @Address1ID INT = SCOPE_IDENTITY();
+-- PRINT 'Address recorded, id: ' + CAST(@Address1ID AS VARCHAR);
 
--- Insert some initial data into the `address` table
-INSERT INTO address (street, city, state, zip_code, country)
-VALUES ('123 Baker St', 'London', 'England', 'NW1 6XE', 'UK');
-INSERT INTO address (street, city, state, zip_code, country)
-VALUES ('221B Baker St', 'London', 'England', 'NW1 6XE', 'UK');
+INSERT INTO address (street, city, state, zip_code, country) VALUES ('456 Elm St', 'Shelbyville', 'StateName', '67890', 'USA');
+DECLARE @Address2ID INT = SCOPE_IDENTITY();
+-- PRINT 'Address recorded, id: ' + CAST(@Address2ID AS VARCHAR);
 
--- Insert some initial data into the `contact` table
-INSERT INTO contact (contact_type, contact_detail, address_id)
-VALUES ('phone', '+44 20 7946 0341', 1);
-INSERT INTO contact (contact_type, contact_detail, address_id)
-VALUES ('email', 'sherlock.holmes@bakerst.com', 2);
+-- Insert data into the 'person' table with references to the 'address' table
+INSERT INTO person (first_name, last_name, permanent_address_id, temporary_address_id) VALUES ('John', 'Doe', @Address1ID, @Address2ID);
+INSERT INTO person (first_name, last_name, permanent_address_id, temporary_address_id) VALUES ('Jane', 'Eyre', @Address1ID, @Address2ID);
+
+
+-- Insert data into the 'contact' table with references to the 'address' table
+INSERT INTO contact (address_id, contact_type, contact_detail) VALUES (@Address1ID, 'email', 'john.doe@email.com');
+INSERT INTO contact (address_id, contact_type, contact_detail) VALUES (@Address2ID, 'email', 'jane.eyre@email.com');

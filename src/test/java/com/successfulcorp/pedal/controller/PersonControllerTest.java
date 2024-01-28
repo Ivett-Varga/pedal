@@ -13,6 +13,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -53,7 +54,7 @@ public class PersonControllerTest {
     }
 
     @Test
-    public void whenGetPersonById_thenReturns200() throws Exception {
+    public void whenFindById_thenReturns200() throws Exception {
         Person person = new Person();
         person.setId(1);
         when(personService.findById(person.getId())).thenReturn(Optional.of(person));
@@ -105,12 +106,12 @@ public class PersonControllerTest {
         person.setId(1);
 
         when(personService.findById(person.getId())).thenReturn(Optional.of(person));
-        doNothing().when(personService).deleteById(person.getId());
+        doNothing().when(personService).delete(person.getId());
 
         mockMvc.perform(delete("/api/persons/{id}", person.getId()))
                 .andExpect(status().isOk());
 
-        verify(personService, times(1)).deleteById(person.getId());
+        verify(personService, times(1)).delete(person.getId());
     }
 
     @Test
@@ -122,4 +123,5 @@ public class PersonControllerTest {
 
         verify(personService, times(1)).deleteAll();
     }
+
 }

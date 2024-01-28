@@ -21,11 +21,11 @@ public class Person extends BaseEntity{
     @Size(max = 100, message = "Last name too long")
     private String lastName;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "permanent_address_id", referencedColumnName = "id", nullable = false)
     private Address permanentAddress;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "temporary_address_id", referencedColumnName = "id")
     private Address temporaryAddress;
 

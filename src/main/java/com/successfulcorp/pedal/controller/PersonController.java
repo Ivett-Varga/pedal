@@ -41,8 +41,7 @@ public class PersonController {
     @PutMapping("/{id}")
     public ResponseEntity<Person> updatePerson(@PathVariable Integer id, @RequestBody Person personDetails) {
         log.info("Received request to update person: {} to new values: {}", id, personDetails);
-        return personService.findById(id)
-                .map(person -> {
+        ResponseEntity<Person> personToUpdate = personService.findById(id).map(person -> {
                     person.setFirstName(personDetails.getFirstName());
                     person.setLastName(personDetails.getLastName());
                     // Handle updating persones if necessary
@@ -50,6 +49,7 @@ public class PersonController {
                     return ResponseEntity.ok(updatedPerson);
                 })
                 .orElse(ResponseEntity.notFound().build());
+        return personToUpdate;
     }
 
     @DeleteMapping("/{id}")
@@ -57,7 +57,7 @@ public class PersonController {
         log.info("Received request to delete person: {}", id);
         return personService.findById(id)
                 .map(person -> {
-                    personService.deleteById(id);
+                    personService.delete(id);
                     return ResponseEntity.ok().<Void>build();
                 })
                 .orElse(ResponseEntity.notFound().build());

@@ -1,9 +1,12 @@
 package com.successfulcorp.pedal.service;
 
+import com.successfulcorp.pedal.domain.Address;
 import com.successfulcorp.pedal.domain.Person;
+import com.successfulcorp.pedal.repository.AddressRepository;
 import com.successfulcorp.pedal.repository.PersonRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,6 +18,7 @@ import java.util.Optional;
 public class PersonService {
 
     private final PersonRepository personRepository;
+    private final AddressRepository addressRepository;
 
     public List<Person> findAll() {
         log.info("Fetching all persons");
@@ -38,7 +42,7 @@ public class PersonService {
         return savedperson;
     }
 
-    public void deleteById(Integer id) {
+    public void delete(Integer id) {
         log.info("Deleting person with id: {}", id);
         boolean exists = personRepository.existsById(id);
         if (exists) {
@@ -56,59 +60,39 @@ public class PersonService {
     public Person updatePerson(Integer id, Person personDetails) {
         log.info("Updating person with id: {}", id);
         Person person = personRepository.findById(id)
-                .orElseThrow(() ->  {
+                .orElseThrow(() -> {
                     log.error("Person not found with id {}", id);
                     return new RuntimeException("Person not found with id " + id);
                 });
 
         person.setFirstName(personDetails.getFirstName());
         person.setLastName(personDetails.getLastName());
-        person.setPermanentAddress(personDetails.getPermanentAddress());
-        person.setTemporaryAddress(personDetails.getTemporaryAddress());
-
+        if (personDetails.getPermanentAddress() != null) {
+            person.setPermanentAddress(personDetails.getPermanentAddress());
+        }
+        if (personDetails.getTemporaryAddress() != null) {
+            person.setTemporaryAddress(personDetails.getTemporaryAddress());
+        }
         Person updatedPerson = personRepository.save(person);
         log.info("Updated person with id: {}", id);
         return updatedPerson;
     }
 
-    public Optional<Person> getPersonById(Integer id) {
-        return personRepository.findById(id);
-    }
+    public Person createPersonWithAddresses(
+            String firstName, String lastName,
+            String permStreet, String permCity, String permState, String permZipCode, String permCountry,
+            String tempStreet, String tempCity, String tempState, String tempZipCode, String tempCountry
+    ) {
+        Address permAddress = new Address(permStreet, permCity, permState, permZipCode, permCountry);
+        Address tempAddress = new Address(tempStreet, tempCity, tempState, tempZipCode, tempCountry);
 
-    public void deletePerson(Integer id) {
-        personRepository.deleteById(id);
-    }
+        permAddress = addressRepository.save(permAddress);
+        tempAddress = addressRepository.save(tempAddress);
 
-    public Person savePerson(Person testPerson) {
-        return personRepository.save(testPerson);
-    }
+        Person person = new Person(firstName, lastName);
+        person.setPermanentAddress(permAddress);
+        person.setTemporaryAddress(tempAddress);
 
-    public List<Person> findByFirstName(String firstName) {
-        log.info("Fetching persons by first name: {}", firstName);
-        List<Person> persons = personRepository.findByFirstName(firstName);
-        log.info("Found {} persons with first name: {}", persons.size(), firstName);
-        return persons;
-    }
-
-
-    public List<Person> findByLastName(String lastName) {
-        log.info("Fetching persons by last name: {}", lastName);
-        List<Person> persons = personRepository.findByLastName(lastName);
-        log.info("Found {} persons with last name: {}", persons.size(), lastName);
-        return persons;
-    }
-
-    public List<Person> findByFirstNameAndLastName(String firstName, String lastName) {
-        log.info("Fetching persons by first name: {} and last name: {}", firstName, lastName);
-        List<Person> persons = personRepository.findByFirstNameAndLastName(firstName, lastName);
-        log.info("Found {} persons with first name: {} and last name: {}", persons.size(), firstName, lastName);
-        return persons;
-    }
-
-    public List<Person> findAllByOrderByLastNameAsc() {
-        log.info("Fetching all persons ordered by last name");
-        List<Person> persons = personRepository.findAllByOrderByLastNameAsc();
-        log.info("Found {} persons", persons.size());
-        return persons;
+        return personRepository.save(person);
     }
 }

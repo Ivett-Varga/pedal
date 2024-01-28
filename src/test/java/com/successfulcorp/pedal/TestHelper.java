@@ -27,9 +27,9 @@ public class TestHelper {
     );
 
     private static final List<Address> PREDEFINED_ADDRESSES = Arrays.asList(
-            new Address("Downing Street 10","london", "United Kingdom", "SW1A 2AB", "England"),
-            new Address("Baker Street 221B","london", "United Kingdom", "NW1 6XE", "England"),
-            new Address("Baker Street 221C","london", "United Kingdom", "NW1 6XE", "England")
+            new Address("Downing Street 10","London", "England", "SW1A 2AB", "UK"),
+            new Address("Baker Street 221B","London", "England", "NW1 6XE", "UK"),
+            new Address("Baker Street 221C","London", "England", "NW1 6XE", "UK")
     );
 
     private static final List<Person> PREDEFINED_PEOPLE = Arrays.asList(
