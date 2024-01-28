@@ -20,3 +20,14 @@ Use Maven commands (mvn clean install, mvn test) for building and testing.
 
 # Recent Updates
 Enhanced testing coverage with additional tests and resolved issues for greater stability.
+
+# Suggested Future Improvements
+Test Coverage: Expanding tests to include edge cases and error handling.
+Exception Handling: Refining global exception handling with specific or custom exceptions.
+API Documentation: Utilization of tools like Swagger for clearer API documentation.
+Security: Implementation of security measures, such as JWT, for API access.
+Database Interaction: Optimizationj of database operations for efficiency, especially with large datasets.
+Logging: Reviewing and adjusting logging levels where necessary.
+Code Comments: Increasing comments in complex code sections for better understanding.
+Performance Testing: Adding tests to assess application performance under load.
+Front-end Integration: If applicable, integrating a basic front-end application.
